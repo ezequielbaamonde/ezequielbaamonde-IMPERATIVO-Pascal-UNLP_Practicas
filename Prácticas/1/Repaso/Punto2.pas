@@ -67,13 +67,27 @@ procedure insercion(var v: vector; dim: integer);
 		v[j+1]:= act;
 	end;
  end;
+ 
+ 
+procedure seleccion (var v: vector; dim: integer);
+ var pos, i, j: integer; item: oficina;
+ begin
+	for i:= 1 to (dim-1) do begin
+		pos:= i;
+		for j:= i+1 to dim do //busco posicion del más pequeño
+			if (v[j].id < v[pos].id) then pos:= J;
+		item:= v[pos]; //guardo el item de la posición en el que es menor
+		v[pos]:= v[i]; //corro el item a la posición que corresponde
+		v[i]:= item; //coloco el menor donde corresponde
+	end;
+ end;
 
 
-var arreglo: vector; i, dimL: integer;
+var arreglo: vector; dimL: integer;
 
 begin
  inicializar(arreglo);
  cargarVector(arreglo, dimL);
  insercion(arreglo, dimL);
- for i:=1 to dimL do writeln(arreglo[i].id);
+ seleccion(arreglo, dimL);
 end.
