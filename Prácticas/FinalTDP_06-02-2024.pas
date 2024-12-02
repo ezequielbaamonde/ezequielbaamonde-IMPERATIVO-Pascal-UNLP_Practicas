@@ -99,9 +99,15 @@ procedure generarLista(a: arbol; var lis: lista; x, y: real);
 	if (a <> NIL) then begin
 		if ((x <= a^.tiempo) and (a^.tiempo <= y)) then begin
 			cargarListaOrdenada(a^.tiempo, a^.dato, lis); //real, regAlumnos, lista
-		end;
-		generarLista(a^.HI, lis, x, y);
-		generarLista(a^.HD, lis, x, y);
+			generarLista(a^.HI, lis, x, y);
+			generarLista(a^.HD, lis, x, y)
+		end
+		else
+		 begin
+			if (a^.tiempo > y) then generarLista(a^.HI, lis, x, y)
+			else generarLista(a^.HD, lis, x, y)
+		 end;
+		
 	end;
 
  end;
@@ -117,13 +123,13 @@ procedure impLista(lis: lista);
 procedure rapido (a: arbol; t: real; var n: string; var d: integer);
  begin
 	if (a<>NIL) then begin
-		if (a^.tiempo < t) then begin
+		if (a^.HI = NIL) then begin //si mi hijo izquierdo es NIL, se que el actual es el que quiero
 			t:= a^.tiempo;
 			n:= a^.dato.nombre;
-			d:= a^.dato.DNI;
+			d:= a^.dato.DNI;		
 		end;
 		rapido(a^.HI, t, n, d);
-		rapido(a^.HD, t, n, d);
+		
 	end;
  end;
 
